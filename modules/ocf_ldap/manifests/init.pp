@@ -18,7 +18,7 @@ class ocf_ldap {
       require => Package['slapd', 'libsasl2-modules-gssapi-mit'];
 
     '/etc/ldap/krb5.keytab':
-      source  => 'puppet:///private/krb5-ldap.keytab',
+      source  => 'puppet:///modules/private/krb5-ldap.keytab',
       owner   => openldap,
       group   => openldap,
       mode    => '0600',
@@ -68,7 +68,7 @@ class ocf_ldap {
         mode   => '0700';
 
       '/root/.ssh/id_rsa':
-        source => 'puppet:///private/id_rsa',
+        source => 'puppet:///modules/private/id_rsa',
         mode   => '0600';
 
       # This is to stop backups from sending emails every time a new IP is used
@@ -79,14 +79,25 @@ class ocf_ldap {
   }
 
   cron { 'ldap-lint':
-    command  => '/opt/share/utils/sbin/ldap-lint',
-    user     => root,
-    special  => 'daily',
-    require  => Vcsrepo['/opt/share/utils'];
+    command => '/opt/share/utils/sbin/ldap-lint',
+    user    => root,
+    special => 'daily',
+    require => Vcsrepo['/opt/share/utils'];
   }
 
   ocf::munin::plugin { 'slapd-open-files':
     source => 'puppet:///modules/ocf_ldap/munin/slapd-open-files',
     user   => root,
+  }
+
+  # firewall input rule, allow ldaps, port number 636
+  ocf::firewall::firewall46 {
+    '101 allow ldaps':
+      opts => {
+        'chain'  => 'PUPPET-INPUT',
+        'proto'  => [ 'tcp', 'udp' ],
+        'dport'  => 'ldaps',
+        'action' => 'accept',
+      };
   }
 }

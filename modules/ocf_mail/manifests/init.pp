@@ -1,6 +1,6 @@
 class ocf_mail {
   include ocf_ssl::default_bundle
-
+  include ocf_mail::firewall_input
   include ocf_mail::spam
   include ocf_mail::site_ocf
   include ocf_mail::site_vhost
@@ -22,9 +22,9 @@ class ocf_mail {
   }
 
   group { 'ocfmail':
-    ensure  => present,
-    name    => ocfmail,
-    system  => true,
+    ensure => present,
+    name   => ocfmail,
+    system => true,
   }
 
   file { '/etc/postfix/main.cf':
