@@ -1,5 +1,6 @@
 class ocf_puppet {
   include ocf_puppet::environments
+  include ocf_puppet::firewall_input
   include ocf_puppet::puppetmaster
 
   file { '/etc/sudoers.d/ocfdeploy-puppet':

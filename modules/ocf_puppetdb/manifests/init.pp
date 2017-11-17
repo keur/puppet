@@ -28,4 +28,34 @@ class ocf_puppetdb {
     manage_firewall    => true,
     ssl_set_cert_paths => true,
   }
+
+  # firewall input, allow access to ports 8081 and 8080 from localhost
+  firewall { '101 allow access to port 8080 from localhost (IPv4)':
+    provider => 'iptables',
+    chain    => 'PUPPET-INPUT',
+    proto    => 'all',
+    action   => 'accept',
+    source   => '127.0.0.0/8',
+  }
+  firewall { '102 allow access to port 8081 from localhost (IPv4)':
+    provider => 'ip6tables',
+    chain    => 'PUPPET-INPUT',
+    proto    => 'all',
+    action   => 'accept',
+    source   => '127.0.0.0/8',
+  }
+  firewall { '101 allow access to port 8080 from localhost (IPv6)':
+    provider => 'iptables',
+    chain    => 'PUPPET-INPUT',
+    proto    => 'all',
+    action   => 'accept',
+    source   => '::1',
+  }
+  firewall { '102 allow access to port 8081 from localhost (IPv6)':
+    provider => 'ip6tables',
+    chain    => 'PUPPET-INPUT',
+    proto    => 'all',
+    action   => 'accept',
+    source   => '::1',
+  }
 }
