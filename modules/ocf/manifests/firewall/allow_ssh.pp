@@ -1,12 +1,11 @@
-# firewall input rules for ocf_puppet,
-#   allow puppet (8140 t)
-class ocf_puppet::firewall_input {
+# firewall input rule to allow ssh
+class ocf::firewall::allow_ssh {
   ocf::firewall::firewall46 {
-    '101 allow puppet':
+    '101 accept all ssh':
       opts => {
         'chain'  => 'PUPPET-INPUT',
         'proto'  => 'tcp',
-        'dport'  => 'puppet',
+        'dport'  => 'ssh',
         'action' => 'accept',
       };
   }

@@ -3,12 +3,12 @@ class ocf_mysql {
     # preseed root password
     '/opt/share/puppet/mariadb-server-10.0.preseed':
       mode      => '0600',
-      source    => 'puppet:///modules/private/mariadb-server-10.0.preseed',
+      source    => 'puppet:///private/mariadb-server-10.0.preseed',
       show_diff => false;
 
     '/root/.my.cnf':
       mode   => '0600',
-      source => 'puppet:///modules/private/root-my.cnf';
+      source => 'puppet:///private/root-my.cnf';
   }
 
   class { 'ocf::packages::mysql_server':
@@ -27,7 +27,6 @@ class ocf_mysql {
 
   # allow mysql (3306 udp/tcp)
   ocf::firewall::firewall46 {
-
     '101 allow mysql':
       opts => {
         'chain'  => 'PUPPET-INPUT',

@@ -34,7 +34,6 @@ class ocf_ns {
 
   # firewall input rules, allow domain (53 t/u), bootps (67 t/u), tftp (69 u)
   ocf::firewall::firewall46 {
-
     '101 allow domain':
       opts => {
         'chain'  => 'PUPPET-INPUT',
@@ -42,6 +41,7 @@ class ocf_ns {
         'dport'  => 'domain',
         'action' => 'accept',
       };
+
     '102 allow bootps':
       opts => {
         'chain'  => 'PUPPET-INPUT',
@@ -49,6 +49,7 @@ class ocf_ns {
         'dport'  => 'bootps',
         'action' => 'accept',
       };
+
     '103 allow tftp':
       opts => {
         'chain'  => 'PUPPET-INPUT',

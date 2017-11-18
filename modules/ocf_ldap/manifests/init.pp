@@ -18,7 +18,7 @@ class ocf_ldap {
       require => Package['slapd', 'libsasl2-modules-gssapi-mit'];
 
     '/etc/ldap/krb5.keytab':
-      source  => 'puppet:///modules/private/krb5-ldap.keytab',
+      source  => 'puppet:///private/krb5-ldap.keytab',
       owner   => openldap,
       group   => openldap,
       mode    => '0600',
@@ -68,7 +68,7 @@ class ocf_ldap {
         mode   => '0700';
 
       '/root/.ssh/id_rsa':
-        source => 'puppet:///modules/private/id_rsa',
+        source => 'puppet:///private/id_rsa',
         mode   => '0600';
 
       # This is to stop backups from sending emails every time a new IP is used
