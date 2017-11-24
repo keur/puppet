@@ -61,4 +61,37 @@ class ocf_kerberos {
     hour    => 4,
     require => File['/usr/local/sbin/kerberos-git-backup'];
   }
+
+  # Firewall Rules #
+
+  # Allow Kerberos
+  ocf::firewall::firewall46 {
+    '101 allow kerberos':
+      opts => {
+        chain  => 'PUPPET-INPUT',
+        proto  => 'tcp',
+        dport  => 88,
+        action => 'accept',
+      };
+  }
+  # Allow Kerberos Password
+  ocf::firewall::firewall46 {
+    '101 allow kpasswd':
+      opts => {
+        chain  => 'PUPPET-INPUT',
+        proto  => 'tcp',
+        dport  => 464,
+        action => 'accept',
+      };
+  }
+  # Allow Kerberos Admin
+  ocf::firewall::firewall46 {
+    '101 allow kerberos-adm':
+      opts => {
+        chain  => 'PUPPET-INPUT',
+        proto  => 'tcp',
+        dport  => 749,
+        action => 'accept',
+      };
+  }
 }

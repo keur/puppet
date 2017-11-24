@@ -1,4 +1,5 @@
 class ocf_csgo {
+  include ocf::firewall::allow_http
   include ocf::apt::i386
 
   user { 'ocfcsgo':
@@ -46,5 +47,16 @@ class ocf_csgo {
 
   ocf::munin::plugin { 'csgo':
     source => 'puppet:///modules/ocf_csgo/munin';
+  }
+
+  # Firewall rules for dedicated server hosting
+  ocf::firewall::firewall46 {
+    '101 allow srcds_linux':
+      opts => {
+        chain  => 'PUPPET-INPUT',
+        proto  => ['tcp', 'udp'],
+        dport  => [26901, 27005, 27015, 27020],
+        action => 'accept',
+      };
   }
 }

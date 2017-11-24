@@ -1,4 +1,5 @@
 class ocf_hpc {
+  include ocf::firewall::allow_ssh
   include ocf::ipmi
 
   # install proprietary nvidia drivers
