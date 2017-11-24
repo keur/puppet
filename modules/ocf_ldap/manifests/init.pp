@@ -94,10 +94,10 @@ class ocf_ldap {
   ocf::firewall::firewall46 {
     '101 allow ldaps':
       opts => {
-        'chain'  => 'PUPPET-INPUT',
-        'proto'  => [ 'tcp', 'udp' ],
-        'dport'  => 'ldaps',
-        'action' => 'accept',
+        chain  => 'PUPPET-INPUT',
+        proto  => ['tcp', 'udp'],
+        dport  => 'ldaps',
+        action => 'accept',
       };
   }
 }

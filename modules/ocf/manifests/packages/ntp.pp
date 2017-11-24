@@ -25,10 +25,10 @@ class ocf::packages::ntp($master = false, $peers = []) {
   ocf::firewall::firewall46 {
     '101 accept all ntp':
       opts => {
-        'chain'  => 'PUPPET-INPUT',
-        'proto'  => [ 'tcp', 'udp' ],
-        'dport'  => 'ntp',
-        'action' => 'accept',
+        chain  => 'PUPPET-INPUT',
+        proto  => ['tcp', 'udp'],
+        dport  => 'ntp',
+        action => 'accept',
       };
   }
 }
