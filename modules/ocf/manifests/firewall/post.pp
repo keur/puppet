@@ -74,7 +74,7 @@ class ocf::firewall::post {
 
   # Drop packets on the primary network inteface that are not whitelisted
   # TODO: eliminate this if statement once testing is complete
-  if $ocf::firewall::drop_other_input_packets {
+  if $ocf::firewall::drop_other_input {
     ocf::firewall::firewall46 {
       '999 drop unrecognized input packets on primary interface':
         opts => {
