@@ -1,4 +1,6 @@
 class ocf::firewall::post {
+  require ocf::networking
+
   # Only allow root and postfix to connect to anthrax port 25; everyone else
   # must use the sendmail interface
   ['root', 'postfix'].each |$username| {
@@ -66,6 +68,22 @@ class ocf::firewall::post {
       destination => $d,
       provider    => 'ip6tables',
       before      => undef,
+    }
+  }
+
+
+  # Drop packets on the primary network inteface that are not whitelisted
+  # TODO: eliminate this if statement once testing is complete
+  if $ocf::firewall::drop_other_input_packets {
+    ocf::firewall::firewall46 {
+      '999 drop unrecognized input packets on primary interface':
+        opts => {
+          chain   => 'PUPPET-INPUT',
+          proto   => 'all',
+          iniface => $ocf::networking::iface,
+          action  => 'drop',
+        },
+        before => undef,
     }
   }
 }
