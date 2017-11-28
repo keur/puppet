@@ -39,20 +39,15 @@ class ocf_admin {
   # Firewall Rules #
 
   # Allow Redis
-  firewall { '101 allow redis (IPv4)':
-    chain    => 'PUPPET-INPUT',
-    proto    => 'tcp',
-    dport    => 6378,
-    action   => 'accept',
+  ocf::firewall::firewall46 {
+    '101 allow redis':
+      opts => {
+        chain  => 'PUPPET-INPUT',
+        proto  => 'tcp',
+        dport  => 6378,
+        action => 'accept',
+      };
   }
-  firewall { '101 allow redis (IPv6)':
-    chain    => 'PUPPET-INPUT',
-    provider => 'ip6tables',
-    proto    => 'tcp',
-    dport    => 6378,
-    action   => 'accept',
-  }
-
   # Allow 8000-8999 for dev work
   ocf::firewall::firewall46 {
     '101 allow dev':

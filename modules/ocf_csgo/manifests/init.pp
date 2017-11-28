@@ -1,5 +1,4 @@
 class ocf_csgo {
-  include ocf::firewall::allow_http
   include ocf::apt::i386
 
   user { 'ocfcsgo':
@@ -50,6 +49,7 @@ class ocf_csgo {
   }
 
   # Firewall rules for dedicated server hosting
+  include ocf::firewall::allow_http
   ocf::firewall::firewall46 {
     '101 allow srcds_linux':
       opts => {

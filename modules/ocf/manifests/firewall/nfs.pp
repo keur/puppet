@@ -40,7 +40,7 @@ class ocf::firewall::nfs {
       opts => {
         chain  => 'PUPPET-INPUT',
         proto  => 'tcp',
-        dport  => 2049,
+        dport  => 'nfs',
         action => 'accept',
       };
   }
@@ -51,7 +51,7 @@ class ocf::firewall::nfs {
       opts => {
         chain  => 'PUPPET-INPUT',
         proto  => ['tcp', 'udp'],
-        dport  => 111,
+        dport  => 'sunrpc',
         action => 'accept',
       };
   }
