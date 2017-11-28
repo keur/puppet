@@ -43,7 +43,6 @@ class ocf_admin {
     chain    => 'PUPPET-INPUT',
     proto    => 'tcp',
     dport    => 6378,
-    source => '169.229.226.1/24',
     action   => 'accept',
   }
   firewall { '101 allow redis (IPv6)':
@@ -51,7 +50,6 @@ class ocf_admin {
     provider => 'ip6tables',
     proto    => 'tcp',
     dport    => 6378,
-    source   => '2607:f140:8801::1:1/96',
     action   => 'accept',
   }
 
