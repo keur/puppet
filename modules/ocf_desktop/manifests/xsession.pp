@@ -18,6 +18,10 @@ class ocf_desktop::xsession {
     '/opt/share/puppet/lab-close-notify':
       mode    => '0755',
       source  => 'puppet:///modules/ocf_desktop/xsession/lab-close-notify';
+    # script to notify users of print job status
+    '/opt/share/puppet/print-notify':
+      mode    => '0755',
+      source  => 'puppet:///modules/ocf_desktop/xsession/print-notify';
     # script to tile multiple displays
     '/usr/local/bin/fix-displays':
       mode    => '0755',
